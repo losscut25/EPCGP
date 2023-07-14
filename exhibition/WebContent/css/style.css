@@ -1,3 +1,9 @@
+.selected {
+  background-color: #167e56;
+  color: #00ff40;
+  border-radius: 50%;
+}
+
 .reservationMain{
 	width: 83rem;
     margin-top: 2rem;
@@ -121,7 +127,7 @@ body {
 
 .days div:hover:not(.today) {
   background-color: #262626;
-  border: 0.2rem solid #777;
+  border: 0.4rem solid #777;
   cursor: pointer;
 }
 
