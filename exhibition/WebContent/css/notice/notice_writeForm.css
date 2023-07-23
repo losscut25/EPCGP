@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+#outer {width: 800px; margin: auto;}	
+#wrap {width: 780px; margin: 100px auto;}
+	
+h3 { border-bottom-style : solid; 
+		border-bottom-width : 2px;
+		border-bottom-color : black; 	
+		padding: 10px 20px 10px 20px;}
+
+		

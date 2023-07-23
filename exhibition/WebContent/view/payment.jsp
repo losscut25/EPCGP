@@ -7,6 +7,9 @@
 <title>결제하기</title>
 </head>
 <body>
+<form id="paymentForm" action="payment.do" method="post">
 
+<h2>예약완료</h2>
+</form>
 </body>
 </html>

@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import util.JdbcUtil;
+import jdbc.connection.ConnectionProvider;
 
 public class Reservation_DAO {
     // 예매 정보를 저장하는 메서드
@@ -17,7 +17,8 @@ public class Reservation_DAO {
 		    			"VALUES (?, ?, ?, ?, ?)";
         try {
             // 데이터베이스 연결
-            conn = JdbcUtil.getConnection();
+            conn = ConnectionProvider.getConnection();
+            System.out.println("연결완료");
             // SQL 쿼리 작성
             // PreparedStatement 객체 생성
             pstmt = conn.prepareStatement(query);
@@ -28,11 +29,17 @@ public class Reservation_DAO {
             pstmt.setInt(3, reservation.getExhibition_no());
             pstmt.setInt(4, reservation.getPrice_no());
             pstmt.setString(5, reservation.getAddress());
+//            pstmt.setInt(1, 2); // 예약 번호 고정 값
+//            pstmt.setString(2, "uu"); // 회원 ID 고정 값
+//            pstmt.setInt(3, 1); // 전시회 번호 고정 값
+//            pstmt.setInt(4, 20000); // 가격 번호 고정 값
+//            pstmt.setString(5, "수원"); // 주소 고정 값
             // 쿼리 실행
             pstmt.executeUpdate();
             // 리소스 해제
             pstmt.close();
         } catch (SQLException e) {
+        	System.out.println("연결이 되지 않았습니다.");
             e.printStackTrace();
         } finally {
             // 데이터베이스 연결 종료
@@ -54,7 +61,7 @@ public class Reservation_DAO {
     	ResultSet rs = null;
         try {
             // 데이터베이스 연결
-            conn = JdbcUtil.getConnection();
+            conn = ConnectionProvider.getConnection();
             
             // SQL 쿼리 작성
             
@@ -94,7 +101,7 @@ public class Reservation_DAO {
     	ResultSet rs = null;
         try {
             // 데이터베이스 연결
-            conn = JdbcUtil.getConnection();
+            conn = ConnectionProvider.getConnection();
             
             // SQL 쿼리 작성
             
