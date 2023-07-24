@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+=======
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+>>>>>>> hyeji
   <display-name>exhibition</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
@@ -9,6 +13,7 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+<<<<<<< HEAD
 
   <!-- DB 연동 관련 시작 -->
   <listener>
@@ -19,6 +24,21 @@
      <param-name>poolConfig</param-name>
      <param-value>
 		 jdbcdriver=com.mysql.cj.jdbc.Driver
+=======
+  
+  <!-- DB연동관련 시작 -->
+  
+  <!-- DBCPInitListener -->
+  <listener>
+  	<listener-class>jdbc.DBCPInitListener</listener-class>
+  </listener>
+  <!-- DBCPInitListener -->
+  
+  <context-param>
+  <param-name>poolConfig</param-name>
+  <param-value>
+  		jdbcdriver=com.mysql.cj.jdbc.Driver
+>>>>>>> hyeji
         jdbcUrl=jdbc:mysql://errorpassing.cxa1cmtvlx16.ap-northeast-2.rds.amazonaws.com:3306/LookAt?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=UTC
         dbUser=admin
         dbPass=ep123123
@@ -26,6 +46,7 @@
         minIdle=3
         maxTotal=30
         poolName=exhi
+<<<<<<< HEAD
      </param-value>
   </context-param>
   <!-- DB 연동 관련 끝 -->
@@ -45,4 +66,34 @@
   		<url-pattern>*.do</url-pattern>
 	</servlet-mapping> 
 	
+=======
+  </param-value>
+  </context-param>
+  
+  <!-- DB연동관련 끝 -->
+  
+  <!-- MVC 컨트롤러 -->
+   <servlet>
+      <servlet-name>ControllerUsingURI</servlet-name>
+      <servlet-class>mvc.controller.ControllerUsingURI</servlet-class>
+      
+      <!-- p536참고 11라인 ~ 15라인 -->
+      <init-param>
+         <param-name>configFile</param-name>
+         <param-value>/WEB-INF/commandHandlerURI.properties</param-value>
+      </init-param>
+      <load-on-startup>1</load-on-startup>
+   </servlet>
+   
+   <servlet-mapping>
+      <servlet-name>ControllerUsingURI</servlet-name>
+      <url-pattern>*.do</url-pattern>
+   </servlet-mapping>
+   
+   <!-- 세션 유효시간 : 분단위 -->
+   <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+  
+>>>>>>> hyeji
 </web-app>
