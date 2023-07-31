@@ -61,7 +61,7 @@
 		
 	<div class="naverBtn">
 		<INPUT CLASS="naver" id="naverLogin" TYPE="button" 
-		onclick="loadNaver();" STYLE="CURSOR: POINTER;" VALUE="NAVER 아이디로 로그인"/>
+		 STYLE="CURSOR: POINTER;" VALUE="NAVER 아이디로 로그인"/>
 	</div>
 	<%--네이버에서 제공하는 무조건 써야하는 이미지 --%>
 	  <div id="naver_id_login"  style="display: none;"></div>
@@ -76,15 +76,14 @@
   	naver_id_login.init_naver_id_login();
   	
   	function naverSignInCallback() {
-  		// naver_id_login.getProfileData('프로필항목명');
-  		// 프로필 항목은 개발가이드를 참고하시기 바랍니다.
   		alert(naver_id_login.getProfileData('email'));
   		alert(naver_id_login.getProfileData('nickname'));
   		alert(naver_id_login.getProfileData('age'));
   	}
   	// 네이버 사용자 프로필 조회
+  	if(naver_id_login.is_callback == true){
   	naver_id_login.get_naver_userprofile("naverSignInCallback()");
-  	
+  	}
   	//내가 만든 네이버 로그인을 눌렀을때 네이버에서 제공해주는 이미지로 연결
   	$(document).on("click", "#naverLogin", function(){ 
 		var btnNaverLogin = document.getElementById("naver_id_login").firstChild;
