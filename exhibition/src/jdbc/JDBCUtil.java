@@ -7,7 +7,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 public class JDBCUtil {
+=======
+public class JdbcUtil {
+>>>>>>> brchhui
 
 		//Connection 반환
 		public static void close (Connection conn) {

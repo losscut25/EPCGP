@@ -2,6 +2,7 @@
     font-size:20px;
     font-weight: bold;
     color: #333333;
+    
 }
 
 .section {
@@ -12,6 +13,14 @@
 	position: absolute;
 	top:4rem;
 	left:9rem;
+}
+
+.introduction {
+	position: absolute;
+	width: 420px;
+	top:15rem;
+	left:33rem;
+  line-height: 50px;
 }
 
 .boxcontrol {
@@ -29,6 +38,29 @@
     width: 482px;
     height: 482px;
     border-radius: 10px;
+}
+.posterDetailImage {
+	position: absolute;
+	top: 37rem;
+    left: 0;
+    width: 482px;
+    height: 100%auto;
+    border-radius: 10px;
+}
+.posterBoxBottom {
+	position: absolute;
+	top: -2rem;
+    left: 0;
+    width: 482px;
+    height: 100%auto;
+    border-radius: 10px;
+}
+
+.exTitle2 {
+	position: absolute;
+	top: 35rem;
+    left: 1rem;
+    width: 482px;
 }
 
 .button1{
@@ -76,7 +108,7 @@
 .num_select {
 	position : absolute;
   width:100%;
-  bottom:85%;
+  bottom:79%;
   right:0rem;
 }
 
@@ -124,12 +156,14 @@
 }
 
 .reservationMain{
-	position: relative;
+	position: absolute;
 	width: 117rem;
-	height: 60em;
+	height: 110rem;
     margin-top: 2rem;
     margin-bottom: 9.8rem;
-    margin-left: 1rem;    
+    margin-left: 1rem;  
+    top : 12rem;
+    left : 5rem;  
 }
 
 

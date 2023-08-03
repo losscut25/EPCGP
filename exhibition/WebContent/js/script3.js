@@ -83,18 +83,23 @@ function calendarMaker(target, date) {
             calendarMaker($(target), nowDate);
         });
         //일자 선택 클릭
-        $(".custom_calendar_table").on("click", "td", function () {
-            if ($(this).hasClass("select_day")) {
+        $(".custom_calendar_table").on("click", "td", function() {
+        	if ($(this).hasClass("select_day")) {
                 // 이미 선택한 날짜를 클릭한 경우
                 $(this).removeClass("select_day");
-                $(this).find(".reserve_p").text($(this).data("custom_set_date"));
-                reserveInfo = "";
+                $(this).find(".reserve_p").text(""); // 예약 날짜 초기화
+                reserveInfo = ""; // 예약 정보도 초기화
             } else {
+                // 선택한 날짜로 reserveInfo 값 설정
+                var day = $(this).text(); // 일자
+                var month = nowDate.getMonth() + 1; // 월 (0부터 시작하므로 +1)
+                var year = nowDate.getFullYear(); // 년
+
+                reserveInfo = year + "-" + month + "-" + day; // 연월일 형식으로 저장
                 // 다른 날짜를 선택한 경우
                 $(".custom_calendar_table .select_day").removeClass("select_day");
                 $(this).addClass("select_day");
-                $(this).find(".reserve_p").text("");
-                reserveInfo = $(this).data("custom_set_date");
+                $(this).find(".reserve_p").text(""); // 선택한 날짜를 표시
             }
         });
     }
@@ -167,6 +172,7 @@ $(document).ready(function() {
 	    var quantity = parseInt($(this).siblings('.select_quanatity').text(), 10);
 	    quantity++;
 	    $(this).siblings('.select_quanatity').text(quantity);
+	    $(this).siblings('.select_quanatity').attr('value', quantity); // value 값 설정
 	    updateTotalPrice(); // 수량 변경으로 인해 총 결제금액 업데이트
 	  });
 
@@ -175,6 +181,7 @@ $(document).ready(function() {
 	    if (quantity > 0) {
 	      quantity--;
 	      $(this).siblings('.select_quanatity').text(quantity);
+	      $(this).siblings('.select_quanatity').attr('value', quantity); // value 값 설정
 	      updateTotalPrice(); // 수량 변경으로 인해 총 결제금액 업데이트
 	    }
 	  });
@@ -193,8 +200,100 @@ $(document).ready(function() {
 	        total += quantity * price;
 	      }
 	    });
-
 	    // 총 결제금액 표시
 	    $('.total_price').text(total.toLocaleString() + '원');
+	    
 	  }
 	});
+
+
+$(document).ready(function() {
+	$('#btn_5').on('click', function() {
+		var memberid = $("#memid").val();
+		var title = $("#restitle").val();
+		var going_date = reserveInfo;
+		var exhibition_no = $("#exhibition_no").val();
+		var price_no = $("#price_no").val();
+		var total_adult = $("#quan").text();
+		var total_student = $("#quan2").text();
+		var total_baby = $("#quan3").text();
+		var total_price = 0;
+
+		    // 모든 권종의 가격을 합산하여 total_price에 저장
+		    $('.select_item').each(function() {
+		      var quantity = parseInt($(this).find('.select_quanatity').text(), 10);
+		      var price = parseInt($(this).find('.item_price').val(), 10);
+		      if (!isNaN(quantity) && !isNaN(price)) {
+		        total_price += quantity * price;
+		      }
+		    });
+		    
+		    
+		  $.ajax({
+			  url: "/reserve.do",
+			  type: "POST",
+			  data: {
+			    member_id: memberid,
+			    exhibition_no: exhibition_no,
+			    price_no: price_no,
+			    going_date: going_date,
+			    total_adult : total_adult,
+			    total_student : total_student,
+			    total_baby : total_baby,
+			    total_price : total_price
+			  },
+			  success: function(response) {
+				  alert("결제를 진행합니다.");
+				  console.log(exhibition_no, memberid, title, price_no, going_date, total_adult, total_student, total_baby, total_price);
+			  },
+			  error: function(jqXHR, textStatus, errorThrown) {
+			    // 요청이 실패한 경우 실행할 코드를 작성하세요.
+				  alert("실패했습니다.");
+			  }
+		});
+		    requestPay(total_price); // total_price를 인자로 전달하여 requestPay 함수 실행
+		    function requestPay(total_price) {
+		    	  // requestPay 함수를 수정하여 결제 API에 total_price 값을 전달하고, 실행할 코드를 작성하세요.
+		    	  var IMP = window.IMP;
+		    	  var merchant_uid = '123456-' + new Date().getTime(); // 예: '57008833-1627640125000'
+
+		    	  IMP.init("imp76217741");
+
+		    	  IMP.request_pay(
+		    	    {
+		    	      pg: "kcp.TC0ONETIME",
+		    	      pay_method: "card",
+		    	      merchant_uid: merchant_uid,
+		    	      name: title,
+		    	      amount: total_price, // 전달받은 total_price 값을 결제 API에 사용
+		    	      buyer_email: "Iamport@chai.finance",
+		    	      buyer_name: "포트원 기술지원팀",
+		    	      buyer_tel: "010-1234-5678",
+		    	      buyer_addr: "서울특별시 강남구 삼성동",
+		    	      buyer_postcode: "123-456",
+		    	    },
+		    	    function (rsp) {
+			              if (rsp.success) {
+			              	// 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
+			                    // jQuery로 HTTP 요청
+			                    ajax({
+			                      url: "/IamportController",
+			                      method: "POST",
+			                    }).done(function (data) {
+			                  	// 위의 rsp.paid_amount 와 data.response.amount를 비교한후 로직 실행 (iamport 서버검증)
+			                  	  if(rsp.paid_amount == data.response.amount){
+			        		        	succeedPay(rsp.imp_uid, rsp.merchant_uid);
+			        	        	} else {
+			        	        		alert("결제 검증 실패");
+			        	        	}
+			                    })
+			                } else {
+			              	  var msg = '결제에 실패하였습니다.';
+			                    msg += '에러내용 : ' + rsp.error_msg;
+			                    alert(msg);
+			                }
+			          }
+		    	   );
+		      }
+	});
+});

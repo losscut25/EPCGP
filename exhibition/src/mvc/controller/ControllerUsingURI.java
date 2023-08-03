@@ -30,7 +30,6 @@ public class ControllerUsingURI extends HttpServlet {
 	    System.out.println("prop="+prop);												
 	    String configFilePath = getServletContext().getRealPath(configFile);
 	    System.out.println("configFilePath="+configFilePath);
-
 	    
 =======
 //p540
