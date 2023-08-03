@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class JDBCUtil {
+public class JdbcUtil {
 
 		//Connection 반환
 		public static void close (Connection conn) {
