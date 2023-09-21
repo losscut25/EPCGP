@@ -3,10 +3,15 @@ JSP 전시게시판 및 예매 사이트
 
 ## 작업환경
 작업 툴 : eclipse
+
 언어 : java 8
+
 HTML / CSS / JS / AJAX / Bootstrap4
+
 DB : MySQL / Workbench 8
+
 웹서버 : Tomcat 9
+
 조원 : 7명
 
 ## 메인페이지
@@ -15,3 +20,4 @@ DB : MySQL / Workbench 8
 
 ## 본인 구현 페이지(얘매하기)
 ![port](https://github.com/losscut25/EPCGP/assets/80761052/d9a3fb34-4eab-4970-ab73-89b3431b085c)
+
