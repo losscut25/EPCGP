@@ -6,7 +6,7 @@ JSP 전시게시판 및 예매 사이트
 
 언어 : java 8
 
-HTML / CSS / JS / AJAX / Bootstrap4
+JSP / CSS / JS / AJAX / Bootstrap4
 
 DB : MySQL / Workbench 8
 
